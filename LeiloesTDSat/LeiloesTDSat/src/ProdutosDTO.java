@@ -1,48 +1,56 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 
 /**
  *
  * @author Adm
  */
 public class ProdutosDTO {
-    private Integer id;
-    private String nome;
-    private Integer valor;
-    private String status;
 
-    public Integer getId() {
-        return id;
-    }
+	private Integer id;
+	private String nome;
+	private Integer valor;
+	private String status;
 
-    public String getNome() {
-        return nome;
-    }
+	public ProdutosDTO() {
+	}
 
-    public Integer getValor() {
-        return valor;
-    }
+	public ProdutosDTO(String nome, Integer valor, String status) {
+		this.nome = nome;
+		this.valor = valor;
+		this.status = status;
+	}
 
-    public String getStatus() {
-        return status;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+	public String getNome() {
+		return nome;
+	}
 
-    public void setValor(Integer valor) {
-        this.valor = valor;
-    }
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
-    
+	public Integer getValor() {
+		return valor;
+	}
+
+	public void setValor(Integer valor) {
+		this.valor = valor;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+
+
 }
