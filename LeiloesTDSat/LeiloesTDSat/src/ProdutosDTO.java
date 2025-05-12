@@ -44,7 +44,11 @@ public class ProdutosDTO {
 	}
 
 	public String getStatus() {
-		return status;
+		return this.status;
+	}
+	
+	public String getStatus(String formato) {
+		return this.status + " (" + formato + ")";
 	}
 
 	public void setStatus(String status) {

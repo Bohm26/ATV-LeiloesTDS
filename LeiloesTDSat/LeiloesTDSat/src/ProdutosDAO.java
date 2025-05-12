@@ -3,6 +3,7 @@
  *
  * @author Adm
  */
+import java.util.List;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.sql.Connection;
@@ -18,7 +19,7 @@ public class ProdutosDAO {
 	ArrayList<ProdutosDTO> listagem = new ArrayList<>();
 
 	public void cadastrarProduto(ProdutosDTO produto) {
-		String sql = "INSERT INTO produtos(nome, valor, status) VALUES (?, ?, ?)";
+		String sql = "INSERT INTO produtos(nome, valor, status) VALUES (?, ?, 'À Venda')";
 
 		conectaDAO conn = null;
 		PreparedStatement ps = null;
@@ -39,15 +40,44 @@ public class ProdutosDAO {
 
 				conn.desconectar();
 			}
+			
 		} catch (SQLException es) {
 			JOptionPane.showMessageDialog(null, "Erro Ao Cadastrar" + "es");
 		}
 
 	}
 
-	public ArrayList<ProdutosDTO> listarProdutos() {
-
-		return listagem;
+	public static List<ProdutosDTO> listarProdutos() throws SQLException {
+		
+		ArrayList<ProdutosDTO> prod = new ArrayList();
+		
+		String sql = "SELECT id, nome, valor, status FROM produtos";
+		conectaDAO conn = null;
+		PreparedStatement ps = null;
+		
+		try{
+			conn = new conectaDAO();
+			conn.connectDB();
+			ps = conn.getConexao().prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()){
+				ProdutosDTO produto = new ProdutosDTO();
+				
+				produto.setId(rs.getInt("id"));
+				produto.setNome(rs.getString("nome"));
+				produto.setValor((rs.getInt("valor")));
+				produto.getStatus(rs.getString("status"));
+				
+				prod.add(produto);
+				
+			}
+		}catch ( SQLException er){
+			JOptionPane.showMessageDialog(null, "Erro na Listagem, SQL: " + er);
+		}
+				
+				
+		return prod;
 	}
 
 }
