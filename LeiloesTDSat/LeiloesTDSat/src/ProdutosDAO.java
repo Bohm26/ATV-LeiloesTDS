@@ -67,7 +67,7 @@ public class ProdutosDAO {
 				produto.setId(rs.getInt("id"));
 				produto.setNome(rs.getString("nome"));
 				produto.setValor((rs.getInt("valor")));
-				produto.getStatus(rs.getString("status"));
+				produto.setStatus(rs.getString("status"));
 				
 				prod.add(produto);
 				
