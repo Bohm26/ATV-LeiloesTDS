@@ -135,17 +135,35 @@ public class listagemVIEW extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenderActionPerformed
-		String id = id_produto_venda.getText();
 
-		ProdutosDAO produtosdao = new ProdutosDAO();
+		if (id_produto_venda.getText().trim().isEmpty()) {
+			JOptionPane.showMessageDialog(this, "Por Favor, Digite o ID do produto!");
+			return;
+		}
 
-		//produtosdao.venderProduto(Integer.parseInt(id));
-		listarProdutos();
+		try {
+			int idProduto = Integer.parseInt(id_produto_venda.getText().trim());
+
+			ProdutosDTO produto = new ProdutosDTO();
+			produto.setId(idProduto);
+
+			boolean sucesso = ProdutosDAO.venderProduto(produto);
+
+			if (sucesso) {
+				JOptionPane.showMessageDialog(this, "Produto Vendido com Sucesso");
+				id_produto_venda.setText("");
+			}
+			else {
+				JOptionPane.showMessageDialog(this, "Produto não encontrado ou ná Vendido!");
+			}
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, "Erro ao vender Produto: " + e);
+		}
     }//GEN-LAST:event_btnVenderActionPerformed
 
     private void btnVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendasActionPerformed
-		//vendasVIEW vendas = new vendasVIEW(); 
-		//vendas.setVisible(true);
+		vendasVIEW vendas = new vendasVIEW();
+		vendas.setVisible(true);
     }//GEN-LAST:event_btnVendasActionPerformed
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
@@ -162,24 +180,20 @@ public class listagemVIEW extends javax.swing.JFrame {
 			List<ProdutosDTO> listagem = produtosdao.listarProdutos();
 
 			for (ProdutosDTO produto : listagem) {
-				model.addRow(new Object[] {
-					
+				model.addRow(new Object[]{
 					produto.getId(),
 					produto.getNome(),
 					produto.getValor(),
 					produto.getStatus()
 				});
 			}
-			
+
 		} catch (Exception e) {
-		 JOptionPane.showMessageDialog(null, "Erro Ao Listar: " + e);
+			JOptionPane.showMessageDialog(null, "Erro Ao Listar: " + e);
 		}
 
 	}
-	
-	/**
-	 * @param args the command line arguments
-	 */
+
 	public static void main(String args[]) {
 		/* Set the Nimbus look and feel */
 		//<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -225,4 +239,3 @@ public class listagemVIEW extends javax.swing.JFrame {
     private javax.swing.JTable listaProdutos;
     // End of variables declaration//GEN-END:variables
 }
-
